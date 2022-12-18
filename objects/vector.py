@@ -1,4 +1,4 @@
-from math import cos, sin, radians, sqrt, degrees, tan
+from math import cos, sin, radians, sqrt
 from .methods import Methods
 
 class Vector:
