@@ -1,5 +1,6 @@
 from math import degrees, atan
 
+
 class Methods:
     @staticmethod
     def get_angle_by_delta(dx: float, dy: float) -> float:

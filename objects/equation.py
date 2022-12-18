@@ -4,6 +4,7 @@ from .vector import Vector
 from .dot import Dot
 from .constants import GRAVITY, HEIGHT
 
+
 class Equation:
     STEP = 3
     DECIMAL_DIGITS = 5

@@ -1,6 +1,7 @@
 from math import cos, sin, radians, sqrt
 from .methods import Methods
 
+
 class Vector:
     def __init__(self, size: float = 0, angle: float = 0) -> None:
         self.size = size
