@@ -39,15 +39,12 @@ class Luncher:
         d = self.HEAD_LENGTH
         
         mx, my = mouse
-        for i in range(2):
-            if i == 0:
-                angle = 180 - alpha + beta
-            else:
-                angle = alpha + beta - 180
-            
+        angle = beta - alpha + 180
+        for _ in range(2):
             dx = d * cos(radians(angle))
             dy = d * sin(radians(angle))
             draw.line(window, self.COLOR, mouse, (mx + dx, my - dy), self.WIDTH)
+            angle += 2 * alpha
 
     def get_dot_on_range(self, mouse: Dot, d: float) -> tuple[float, float]:
         k = self.range

@@ -2,12 +2,11 @@ from math import cos, tan, radians
 from pygame import surface, draw
 from .vector import Vector
 from .dot import Dot
-from .constants import GRAVITY, HEIGHT
+from .constants import GRAVITY, WIDTH, HEIGHT, DECIMAL_DIGITS
 
 
 class Equation:
     STEP = 3
-    DECIMAL_DIGITS = 5
 
     def __init__(self, vector: Vector, position: Dot, color: tuple) -> None:
         self.vector = vector
@@ -34,7 +33,7 @@ class Equation:
         x0, y0 = self.position.get()
         self.f = lambda x: y0 + c1 * (x - x0) - c2 * (x - x0) ** 2
         
-        c1, c2, x0, y0 = (round(value, self.DECIMAL_DIGITS) for value in [c1, c2, x0, y0])
+        c1, c2, x0, y0 = (round(value, DECIMAL_DIGITS) for value in [c1, c2, x0, y0])
         self.value = f'y = {y0} + {c1}(x - {x0}) - {c2}(x - {x0})^2'
 
     def display(self, window: surface.Surface) -> None:
@@ -50,7 +49,7 @@ class Equation:
 
         x = self.position.x
         y = self.f(x)
-        while y >= 0:
+        while 0 <= x <= WIDTH and y >= 0:
             draw.circle(window, self.color, (x, HEIGHT - y), 1)
             x += self.STEP * direction
             y = self.f(x)

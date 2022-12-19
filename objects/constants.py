@@ -1,5 +1,6 @@
 # Measurements 
 WIDTH, HEIGHT = 800, 600
+DECIMAL_DIGITS = 5
 
 # Colors
 BLACK = (0, 0, 0)

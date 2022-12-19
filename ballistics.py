@@ -1,6 +1,6 @@
 import pygame
 from pygame import display, time, event, mouse, font, surface
-from objects import WIDTH, HEIGHT, WHITE, BLACK, Ball
+from objects import WIDTH, HEIGHT, WHITE, BLACK, DECIMAL_DIGITS, Ball
 
 FPS = 60
 CAPTION = 'Pygame Physics'
@@ -13,8 +13,11 @@ def display_info(window: surface.Surface, ball: Ball) -> None:
     equation_text = TEXT_FONT.render(str(ball.equation), True, BLACK)
     window.blit(equation_text, (PADDING, PADDING))
 
+    angle_text = TEXT_FONT.render(f'Target Angle: {round(ball.luncher.vector.angle, DECIMAL_DIGITS)}°', True, BLACK)
+    window.blit(angle_text, (PADDING, equation_text.get_height() + 2 * PADDING))
 
-def main() -> None:
+
+def ballistics() -> None:
     pygame.init()
     
     display.set_caption(CAPTION)
@@ -47,4 +50,4 @@ def main() -> None:
 
 
 if __name__ == '__main__':
-    main()
+    ballistics()
