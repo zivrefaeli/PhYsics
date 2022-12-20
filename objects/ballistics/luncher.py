@@ -1,9 +1,9 @@
 from math import cos, sin, radians 
 from pygame import surface, draw
-from .vector import Vector
-from .dot import Dot
-from .constants import HEIGHT, RED
-from .methods import Methods
+from ..vector import Vector
+from ..dot import BallisticsDot as Dot
+from ..constants import HEIGHT, RED
+from ..methods import Methods
 
 
 class Luncher:
@@ -34,17 +34,14 @@ class Luncher:
         self.draw_head(window, mouse)
 
     def draw_head(self, window: surface.Surface, mouse: tuple[float, float]) -> None:
-        alpha = self.HEAD_ANGLE
-        beta = self.vector.angle
-        d = self.HEAD_LENGTH
-        
         mx, my = mouse
-        angle = beta - alpha + 180
+        angle = self.vector.angle - self.HEAD_ANGLE + 180
+        
         for _ in range(2):
-            dx = d * cos(radians(angle))
-            dy = d * sin(radians(angle))
+            dx = self.HEAD_LENGTH * cos(radians(angle))
+            dy = self.HEAD_LENGTH * sin(radians(angle))
             draw.line(window, self.COLOR, mouse, (mx + dx, my - dy), self.WIDTH)
-            angle += 2 * alpha
+            angle += 2 * self.HEAD_ANGLE
 
     def get_dot_on_range(self, mouse: Dot, d: float) -> tuple[float, float]:
         k = self.range

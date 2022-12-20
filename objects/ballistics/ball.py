@@ -1,10 +1,10 @@
 from json import dumps
 from pygame import surface, draw
-from .dot import Dot
-from .vector import Vector
-from .constants import BLACK, GRAY, GREEN, BLUE, HEIGHT, WIDTH, GRAVITY
 from .luncher import Luncher
 from .equation import Equation
+from ..dot import BallisticsDot as Dot
+from ..vector import Vector
+from ..constants import BLACK, GRAY, GREEN, BLUE, HEIGHT, WIDTH, GRAVITY
 
 
 class Ball:
