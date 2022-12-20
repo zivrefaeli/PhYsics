@@ -1,2 +1,3 @@
 from .constants import *
-from .ball import Ball
+from .ballistics.ball import Ball
+from .electricity.particle import Particle, Electron, Proton
