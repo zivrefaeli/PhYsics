@@ -1,8 +1,14 @@
 from math import cos, sin, radians, sqrt
+from pygame import surface, draw
 from .methods import Methods
+from .dot import Dot
 
 
 class Vector:
+    WIDTH = 2
+    HEAD_SIZE = 10
+    HEAD_ANGLE = 30
+
     def __init__(self, size: float = 0, angle: float = 0) -> None:
         self.size = size
         self.angle = angle
@@ -19,6 +25,29 @@ class Vector:
         dx = self.size * cos(radians(self.angle))
         dy = self.size * sin(radians(self.angle))
         return dx, dy
+
+    def display(self, window: surface.Surface, color: tuple[int, int, int], start: Dot, value: object) -> None:
+        if isinstance(value, tuple):
+            # value is a pygame dot
+            px, py = value
+        elif isinstance(value, int) or isinstance(value, float):
+            # value is scale
+            dx, dy = self.delta()
+            x, y = start.get()
+            x += dx * value
+            y += dy * value
+            px, py = start.convert_to(x, y)
+        else:
+            return
+        draw.line(window, color, start.convert(), (px, py), self.WIDTH)
+
+        angle = self.angle - self.HEAD_ANGLE + 180
+        for _ in range(2):
+            dx = self.HEAD_SIZE * cos(radians(angle))
+            dy = self.HEAD_SIZE * sin(radians(angle))
+            draw.line(window, color, (px, py), (px + dx, py - dy), 2)
+            angle += 2 * self.HEAD_ANGLE
+        
 
     def __add__(self, other):
         if not isinstance(other, Vector):
