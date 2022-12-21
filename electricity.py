@@ -9,11 +9,12 @@ def draw_axes(window: surface.Surface) -> None:
 
 
 def generate_particle(type: int) -> Particle:
-    mx, my = mouse.get_pos()
     particle = Proton(True) if type == 1 else Electron(True)
-    
-    particle.position.x = mx - WIDTH / 2
-    particle.position.y = HEIGHT / 2 - my
+
+    mx, my = mouse.get_pos()
+    mx, my = particle.position.convert_from(mx, my)
+    particle.position.x = mx
+    particle.position.y = my
 
     return particle
 

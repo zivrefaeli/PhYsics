@@ -20,3 +20,11 @@ class Methods:
                 return alpha
             return 360 + alpha
         return 180 + alpha
+
+    @staticmethod
+    def get_sign(q: float) -> str:
+        if q > 0:
+            return '+'
+        if q < 0:
+            return '-'
+        return '0'
