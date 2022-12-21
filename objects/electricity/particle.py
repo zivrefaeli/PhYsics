@@ -1,15 +1,8 @@
 from pygame import surface, draw, font
 from ..dot import ElectricityDot as Dot
-from ..constants import k, e, Me, BLUE, RED, GREY, WHITE
+from ..constants import k, e, Me, BLUE, RED, GREY, WHITE, YELLOW, PINK
 from ..vector import Vector
 from ..methods import Methods
-
-def get_sign(q: float) -> str:
-    if q > 0:
-        return '+'
-    if q < 0:
-        return '-'
-    return '0'
 
 
 class Particle:
@@ -39,8 +32,12 @@ class Particle:
 
         x, y = self.position.convert()
         draw.circle(window, self.color, (x, y), self.RADIUS)
-        text = self.FONT.render(get_sign(self.q), True, WHITE)
+        text = self.FONT.render(Methods.get_sign(self.q), True, WHITE)
         window.blit(text, text.get_rect(center=(x, y)))
+
+        if not self.placed:
+            self.a.display(window, YELLOW, self.position, 300)
+            self.v.display(window, PINK, self.position, 20)
 
     def apply_force(self, particles: list) -> None:
         E_total = Vector()
@@ -53,7 +50,6 @@ class Particle:
             r = particle.position.distance(self.position)
             if r == 0:
                 continue # TODO: lunch particle out of screen
-
             E = abs(k * Q / r ** 2)
 
             E_angle = Methods.get_angle_by_delta(self.position.x - particle.position.x, self.position.y - particle.position.y)
@@ -64,7 +60,7 @@ class Particle:
         
         F = E_total
         F.size *= abs(self.q) # F = qE
-        if self.q < 0:
+        if self.q < 0 and len(particles) > 0:
             F.angle += 180
         
         self.a.size = F.size / self.mass # a = F / m
