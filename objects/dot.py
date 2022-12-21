@@ -11,9 +11,19 @@ class Dot(ABC):
     def get(self) -> tuple[float, float]:
         return self.x, self.y
 
-    @abstractmethod
     def convert(self) -> tuple[float, float]:
-        """converts from coordinate system where (0, 0) is bottom left, to pygame's coordinate system"""
+        return self.convert_to(self.x, self.y)
+
+    @staticmethod
+    @abstractmethod
+    def convert_to(x: float, y: float) -> tuple[float, float]:
+        """converts TO pygame's coordinate system from a normal coordinate system"""
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def convert_from(x: float, y: float) -> tuple[float, float]:
+        """converts FROM pygame's coordinate system to a normal coordinate system"""
         pass
 
     def distance(self, other) -> float:
@@ -26,10 +36,20 @@ class Dot(ABC):
 
 
 class BallisticsDot(Dot):
-    def convert(self) -> tuple[float, float]:
-        return self.x, HEIGHT - self.y
+    @staticmethod
+    def convert_from(x: float, y: float) -> tuple[float, float]:
+        return x, HEIGHT - y
+
+    @staticmethod
+    def convert_to(x: float, y: float) -> tuple[float, float]:
+        return BallisticsDot.convert_from(x, y)
 
 
 class ElectricityDot(Dot):
-    def convert(self) -> tuple[float, float]:
-        return WIDTH / 2 + self.x, HEIGHT / 2 - self.y
+    @staticmethod
+    def convert_from(x: float, y: float) -> tuple[float, float]:
+        return x - WIDTH / 2, HEIGHT / 2 - y
+
+    @staticmethod
+    def convert_to(x: float, y: float) -> tuple[float, float]:
+        return x + WIDTH / 2, HEIGHT / 2 - y
