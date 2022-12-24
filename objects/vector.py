@@ -26,7 +26,11 @@ class Vector:
         dy = self.size * sin(radians(self.angle))
         return dx, dy
 
-    def display(self, window: surface.Surface, color: tuple[int, int, int], start: Dot, value: object) -> None:
+    def reset(self) -> None:
+        self.size = 0
+        self.angle = 0
+
+    def display(self, window: surface.Surface, color: tuple[int, int, int], start: Dot, value: object = 1) -> None:
         if isinstance(value, tuple):
             # value is a pygame dot
             px, py = value
