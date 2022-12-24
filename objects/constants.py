@@ -14,8 +14,7 @@ GREEN = (74, 224, 83)
 BLUE = (0, 0, 255)
 GRAY = (240, 240, 240)
 GREY = (200, 200, 200)
-YELLOW = (242, 228, 75)
-PINK = (240, 62, 213)
+LIGHTBLUE = (11, 166, 222)
 
 # Physics
 GRAVITY = 0.5
