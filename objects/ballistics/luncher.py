@@ -1,8 +1,8 @@
 from pygame import surface
-from ..vector import Vector
-from ..dot import BallisticsDot as Dot
-from ..constants import HEIGHT, RED
+from ..constants import RED
 from ..methods import Methods
+from ..dot import BallisticsDot as Dot
+from ..vector import Vector
 
 
 class Luncher:
@@ -13,27 +13,30 @@ class Luncher:
         self.vector = Vector()
         self.position = position
         self.range = range
+        self.mouse_dot = Dot()
 
     def display(self, window: surface.Surface, mouse: tuple[float, float]) -> None:
         mx, my = mouse
-        mouse_dot = Dot(mx, HEIGHT - my)
+        mx, my = Dot.convert_to(mx, my)
+        self.mouse_dot.x = mx
+        self.mouse_dot.x = my
 
-        d = mouse_dot.distance(self.position)
+        d = self.mouse_dot.distance(self.position)
         if d > self.range:
-            mouse = self.get_dot_on_range(mouse_dot, d)
+            mouse = self.get_dot_on_range(d)
             d = self.range
 
         self.vector.size = d * self.SCALE
-        self.vector.angle = Methods.get_angle_by_delta(mouse_dot.x - self.position.x, mouse_dot.y - self.position.y)
+        self.vector.angle = Methods.get_angle_by_delta(self.mouse_dot.x - self.position.x, self.mouse_dot.y - self.position.y)
 
         self.vector.display(window, self.COLOR, self.position, mouse)
 
-    def get_dot_on_range(self, mouse: Dot, d: float) -> tuple[float, float]:
+    def get_dot_on_range(self, d: float) -> tuple[float, float]:
         k = self.range
         l = d - k
 
-        rx = (k * mouse.x + l * self.position.x) / d
-        ry = (k * mouse.y + l * self.position.y) / d
+        rx = (k * self.mouse_dot.x + l * self.position.x) / d
+        ry = (k * self.mouse_dot.y + l * self.position.y) / d
         return Dot.convert_to(rx, ry)
 
     def __str__(self) -> str:

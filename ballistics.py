@@ -34,7 +34,7 @@ def ballistics() -> None:
             elif e.type == pygame.KEYDOWN:
                 if e.key == pygame.K_SPACE:
                     ball.lunch()
-        
+
         ball.bounce()
         ball.display(window, mouse.get_pos())
         display_info(window, ball)

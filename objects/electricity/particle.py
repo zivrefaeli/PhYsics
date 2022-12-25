@@ -1,9 +1,9 @@
 from pygame import surface, draw, font
 from .magnetic import MagneticField
-from ..dot import ElectricityDot as Dot
 from ..constants import k, e, Me, BLUE, RED, GREY, WHITE, LIGHTBLUE, GREEN, WIDTH, HEIGHT
-from ..vector import Vector
 from ..methods import Methods
+from ..dot import ElectricityDot as Dot
+from ..vector import Vector
 
 
 class Particle:
@@ -11,17 +11,20 @@ class Particle:
     FONT = font.SysFont('Consolas', 18)
 
     def __init__(self, q: float = 0, mass: float = 0, color: tuple[int, int, int] = GREY, placed: bool = False) -> None:
-        self.position = Dot()
-        self.a = Vector()
-        self.v = Vector()
-
-        self.Fe = Vector()
-        self.Fb = Vector()
-
         self.q = q
         self.mass = mass
         self.color = color
         self.placed = placed
+
+        self.position = Dot()
+        self.a = Vector()
+        self.v = Vector()
+
+        self.Etotal = Vector()
+        self.Fe = Vector()
+        self.Fb = Vector()
+
+        self.vector = Vector()
 
     def update(self) -> None:
         F = self.Fe + self.Fb
@@ -52,29 +55,31 @@ class Particle:
         self.apply_magnetic_force(fields)
 
     def apply_electric_force(self, particles: list) -> None:
-        E_total = Vector()
-        
+        self.Etotal.reset()
+
         for particle in particles:
             if not isinstance(particle, Particle):
                 continue
-            
-            Q = particle.q
+
             r = particle.position.distance(self.position)
             if r == 0:
                 self.reset()
                 return
-            E = abs(k * Q / r ** 2)
+            Esize = abs(k * particle.q / r ** 2) # E = kQ/r^2
 
-            E_angle = Methods.get_angle_by_delta(self.position.x - particle.position.x, self.position.y - particle.position.y)
-            if Q < 0:
-                E_angle += 180
+            Eangle = Methods.get_angle_by_delta(self.position.x - particle.position.x, self.position.y - particle.position.y)
+            if particle.q < 0:
+                Eangle += 180
 
-            E_total += Vector(E, E_angle)
-        
+            self.vector.size = Esize
+            self.vector.angle = Eangle
+
+            self.Etotal += self.vector
+
         angle = 180 if self.q < 0 and len(particles) > 0 else 0
-        
-        self.Fe.size = E_total.size * abs(self.q)
-        self.Fe.angle = E_total.angle + angle
+
+        self.Fe.size = abs(self.q) * self.Etotal.size # F = qE
+        self.Fe.angle = self.Etotal.angle + angle
 
     def apply_magnetic_force(self, fields: list) -> None:
         self.Fb.reset()
@@ -82,16 +87,19 @@ class Particle:
         for field in fields:
             if not isinstance(field, MagneticField):
                 continue
-            
+
             d = field.position.distance(self.position)
             if d > field.radius or self.q == 0:
                 continue
-            size = abs(self.q) * self.v.size * field.B
+            Fsize = abs(self.q) * self.v.size * field.B # F = qvB
 
             direction = 90 if (self.q > 0 and field.inside) or (self.q < 0 and not field.inside) else -90
-            angle = self.v.angle + direction
+            Fangle = self.v.angle + direction
 
-            self.Fb += Vector(size, angle)
+            self.vector.angle = Fangle
+            self.vector.size = Fsize
+
+            self.Fb += self.vector
 
     def reset(self) -> None:
         self.position.x = 0

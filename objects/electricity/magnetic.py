@@ -11,9 +11,9 @@ class MagneticField:
     COLOR = RED
     DIRECTION_COLOR = BLUE
 
-    def __init__(self, radius: float, inside: bool) -> None:
+    def __init__(self, position: Dot, radius: float, inside: bool) -> None:
+        self.position = position
         self.radius = radius
-        self.position = Dot(100, 100)
         self.inside = inside
 
         self.B = 10 ** -13 # Tesla
@@ -29,16 +29,17 @@ class MagneticField:
         x, y = Dot.convert_from(px - self.radius, py - self.radius)
         x += self.GAP + self.DELTA
         y -= self.GAP + self.DELTA
-        
+
         amount = (diameter - self.WIDTH * 2) // self.SIZE
         amount_width = self.GAP + amount * self.SIZE
         diff = self.radius * 2 - amount_width
         x += diff / 2
         y -= diff / 2
-        xi = x
 
-        for _ in range(amount):
-            for _ in range(amount):
+        xi = x
+        amount_range = range(amount)
+        for _ in amount_range:
+            for _ in amount_range:
                 self.tester.x = x
                 self.tester.y = y
                 if self.tester.distance(self.position) <= self.radius - self.WIDTH:
