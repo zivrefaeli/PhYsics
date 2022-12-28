@@ -1,4 +1,2 @@
 /.vscode
-/__pycache__
-*/__pycache__
-/dots.py
+__pycache__

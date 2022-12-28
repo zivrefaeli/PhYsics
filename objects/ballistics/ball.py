@@ -1,10 +1,9 @@
-from json import dumps
 from pygame import surface, draw
-from .dot import Dot
-from .vector import Vector
-from .constants import BLACK, GRAY, GREEN, BLUE, HEIGHT, WIDTH, GRAVITY
 from .luncher import Luncher
 from .equation import Equation
+from ..constants import BLACK, GRAY, GREEN, BLUE, HEIGHT, WIDTH, GRAVITY
+from ..dot import BallisticsDot as Dot
+from ..vector import Vector
 
 
 class Ball:
@@ -31,7 +30,7 @@ class Ball:
 
         self.lunched = False
         self.v += self.a
-        
+
         vx, vy = self.v.delta()
         self.position.x += vx
         self.position.y += vy
@@ -42,10 +41,10 @@ class Ball:
         x, y = self.position.convert()
         draw.circle(window, GRAY, (x, y), self.RANGE)
         draw.circle(window, BLACK, (x, y), self.RADIUS)
-        
+
         self.luncher.display(window, mouse)
         self.equation.display(window)
-        
+
         self.path.vector = self.v
         self.path.display(window)
 
@@ -70,10 +69,4 @@ class Ball:
             self.v.size *= self.WALLS_FRICTION
 
     def __str__(self) -> str:
-        return dumps({
-            'position': str(self.position),
-            'a': str(self.a),
-            'v': str(self.v),
-            'luncher': str(self.luncher),
-            'equation': str(self.equation)
-        }, indent=2)
+        return str(self.equation)

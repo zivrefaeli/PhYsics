@@ -1,8 +1,8 @@
 from math import cos, tan, radians
 from pygame import surface, draw
-from .vector import Vector
-from .dot import Dot
-from .constants import GRAVITY, WIDTH, HEIGHT, DECIMAL_DIGITS
+from ..constants import GRAVITY, WIDTH, HEIGHT, FLOAT_DIGITS
+from ..dot import BallisticsDot as Dot
+from ..vector import Vector
 
 
 class Equation:
@@ -27,13 +27,13 @@ class Equation:
         alpha = radians(self.vector.angle)
         v = self.vector.size
 
-        c1 = tan(alpha)
-        c2 = GRAVITY / (2 * v ** 2 * cos(alpha) ** 2)
-        
+        c1 = tan(alpha) # tan(a)
+        c2 = GRAVITY / (2 * v ** 2 * cos(alpha) ** 2) # g / 2v^2cos(a)^2 
+
         x0, y0 = self.position.get()
         self.f = lambda x: y0 + c1 * (x - x0) - c2 * (x - x0) ** 2
-        
-        c1, c2, x0, y0 = (round(value, DECIMAL_DIGITS) for value in [c1, c2, x0, y0])
+
+        c1, c2, x0, y0 = (round(value, FLOAT_DIGITS) for value in [c1, c2, x0, y0])
         self.value = f'y = {y0} + {c1}(x - {x0}) - {c2}(x - {x0})^2'
 
     def display(self, window: surface.Surface) -> None:

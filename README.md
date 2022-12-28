@@ -1,27 +1,29 @@
-## Ballistics Equation
+# Physics Simulations
 
-$$y = y_0 + v_yt + \frac{1}{2}at^2$$
+Simulations of topics I learned in physics class in high school - `Ballistics` and `Electricity`.
 
-$$v_y = v\sin(\alpha)$$
+Developed in Python with *Pygame* library and based on physics equations.
 
-$$a = -g$$
+## Demo
 
-$$y = y_0 + v\sin(\alpha)t - \frac{1}{2}gt^2$$
+motion of an object in air
 
-$$x = x_0 + v_xt$$
+![TODO - add ballistics.gif](/asstes/ballistics.gif)
 
-$$v_x = v\cos(\alpha)$$
+motion of a particle in electric and magnetic field
 
-$$x = x_0 + v\cos(\alpha)t$$
+![TODO - add electricity.gif](/asstes/electricity.gif)
 
-$$x - x_0 = v\cos(\alpha)t$$
+## Usage:
 
-$$t = \frac{x - x_0}{v\cos(\alpha)}$$
+For each simulation run:
 
-$$y = y_0 + v\sin(\alpha) \frac{x - x_0}{v\cos(\alpha)} - \frac{1}{2}g(\frac{x - x_0}{v\cos(\alpha)})^2$$
+```bash
+python ballistics.py
 
-$$y = y_0 + \frac{\sin(\alpha)}{\cos(\alpha)}(x - x_0) - \frac{g}{2}\frac{(x - x_0)^2}{v^2\cos(\alpha)^2}$$
+python electricity.py
+```
 
-#
+## License
 
-$$y = y_0 + \tan(\alpha)(x - x_0) - \frac{g}{2v^2\cos(\alpha)^2} (x - x_0)^2$$
+physics.py was created by Ziv Refaeli and released under the MIT license
