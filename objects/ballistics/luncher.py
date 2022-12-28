@@ -19,7 +19,7 @@ class Luncher:
         mx, my = mouse
         mx, my = Dot.convert_to(mx, my)
         self.mouse_dot.x = mx
-        self.mouse_dot.x = my
+        self.mouse_dot.y = my
 
         d = self.mouse_dot.distance(self.position)
         if d > self.range:
