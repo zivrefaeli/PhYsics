@@ -14,13 +14,17 @@ motion of a particle in electric and magnetic field
 
 ![TODO - add electricity.gif](/asstes/electricity.gif)
 
-## Usage:
+## Usage
 
-For each simulation run:
+For `ballistics` simulation run:
 
 ```bash
 python ballistics.py
+```
 
+For `electricity` simulation run:
+
+```bash
 python electricity.py
 ```
 
