@@ -1,10 +1,12 @@
 import pygame
 pygame.init()
 
-# Measurements 
+# Measurements
 WIDTH, HEIGHT = 800, 600
 FLOAT_DIGITS = 5
 FPS = 60
+X_RANGE = (-WIDTH / 2, WIDTH / 2)
+Y_RANGE = (-HEIGHT / 2, HEIGHT / 2)
 
 # Colors
 BLACK = (0, 0, 0)
