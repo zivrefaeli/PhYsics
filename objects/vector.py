@@ -16,7 +16,7 @@ class Vector:
     @property
     def angle(self) -> float:
         return self._angle
-    
+
     @angle.setter
     def angle(self, value: float) -> None:
         self._angle = (value + 360) % 360
@@ -51,7 +51,6 @@ class Vector:
             dy = self.HEAD_SIZE * sin(radians(angle))
             draw.line(window, color, (px, py), (px + dx, py - dy), 2)
             angle += 2 * self.HEAD_ANGLE
-        
 
     def __add__(self, other):
         if not isinstance(other, Vector):

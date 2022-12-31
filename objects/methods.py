@@ -8,12 +8,12 @@ class Methods:
             if dx >= 0:
                 return 0
             return 180
-        
+
         if dx == 0:
             if dy > 0:
                 return 90
             return 270
-        
+
         alpha = degrees(atan(dy / dx))
         if dx > 0:
             if dy > 0:
