@@ -50,7 +50,6 @@ class MagneticField:
 
     def display(self, window: surface.Surface) -> None:
         draw.circle(window, self.COLOR, self.position.convert(), self.radius, self.WIDTH)
-        # draw.rect(window, RED, (int(px - self.radius), int(py - self.radius), diameter, diameter), self.WIDTH)
 
         for x, y in self.dots:
             if self.inside:
@@ -63,3 +62,7 @@ class MagneticField:
         x1, y1, x2, y2 = (int(n) for n in [x1, y1, x2, y2])
         draw.line(window, self.DIRECTION_COLOR, (x1, y1), (x2, y2), self.WIDTH)
         draw.line(window, self.DIRECTION_COLOR, (x1, y2), (x2, y1), self.WIDTH)
+
+    def __str__(self) -> str:
+        direction = 'x' if self.inside else '•'
+        return f'(|{self.B}|, {direction})'
