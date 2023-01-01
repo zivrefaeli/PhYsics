@@ -12,9 +12,8 @@ class ElectricBoard:
         self.positive = positive
         self.color = BLUE if positive else RED
 
-        self.const = 2 * pi * k
-        self.sigma = 10 ** -23
-        self.E = self.const * self.sigma # E = 2pi * k * sigma
+        self.sigma = 10 ** -23 # C / m^2
+        self.E = 2 * pi * k * self.sigma # E = 2pi * k * sigma
 
         self.angle = 0
         self.l_board = LinearLine()
