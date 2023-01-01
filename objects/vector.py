@@ -5,7 +5,6 @@ from .dot import Dot
 
 
 class Vector:
-    WIDTH = 2
     HEAD_SIZE = 10
     HEAD_ANGLE = 30
 
@@ -16,7 +15,7 @@ class Vector:
     @property
     def angle(self) -> float:
         return self._angle
-    
+
     @angle.setter
     def angle(self, value: float) -> None:
         self._angle = (value + 360) % 360
@@ -30,11 +29,11 @@ class Vector:
         self.size = 0
         self.angle = 0
 
-    def display(self, window: surface.Surface, color: tuple[int, int, int], start: Dot, value: object = 1) -> None:
+    def display(self, window: surface.Surface, color: tuple[int, int, int], start: Dot, value: object = 1, width: int = 2) -> None:
         if isinstance(value, tuple):
             # value is a pygame dot
             px, py = value
-        elif isinstance(value, int) or isinstance(value, float):
+        elif (isinstance(value, int) or isinstance(value, float)) and self.size > 0:
             # value is scale
             dx, dy = self.delta()
             x, y = start.get()
@@ -43,15 +42,14 @@ class Vector:
             px, py = start.convert_to(x, y)
         else:
             return
-        draw.line(window, color, start.convert(), (px, py), self.WIDTH)
+        draw.line(window, color, start.convert(), (px, py), width)
 
         angle = self.angle - self.HEAD_ANGLE + 180
         for _ in range(2):
             dx = self.HEAD_SIZE * cos(radians(angle))
             dy = self.HEAD_SIZE * sin(radians(angle))
-            draw.line(window, color, (px, py), (px + dx, py - dy), 2)
+            draw.line(window, color, (px, py), (px + dx, py - dy), width)
             angle += 2 * self.HEAD_ANGLE
-        
 
     def __add__(self, other):
         if not isinstance(other, Vector):

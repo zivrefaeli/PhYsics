@@ -6,24 +6,42 @@ Developed in Python with *Pygame* library and based on physics equations.
 
 ## Demo
 
-motion of an object in air
+Motion of an object in air
 
-![TODO - add ballistics.gif](/asstes/ballistics.gif)
+![ballistics](/assets/ballistics.gif)
 
-motion of a particle in electric and magnetic field
+Motion of a particle in electric and magnetic field
 
-![TODO - add electricity.gif](/asstes/electricity.gif)
+![electricity](/assets/electricity.gif)
 
-## Usage:
+## Usage
 
-For each simulation run:
+For **ballistics** simulation run:
 
 ```bash
 python ballistics.py
+```
 
+Use the `mouse` to aim, and click on `space` to lunch the object.
+
+<br />
+
+For **electricity** simulation run:
+
+```bash
 python electricity.py
 ```
 
+Click on `mouse` to place Electrons/Protons, and `scroll` to change particle's charge.
+
+| Key | Purpose |
+| --- | ------- |
+| `c` | Remove all particles |
+| `Shift + c` | Remove all fields |
+| `m` | Create magnetic field |
+| `e` | Create electric field |
+| `s` | Switch field direction/charge |
+
 ## License
 
-physics.py was created by Ziv Refaeli and released under the MIT license
+PhYsics was created by Ziv Refaeli and released under the MIT license
