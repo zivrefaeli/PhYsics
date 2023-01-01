@@ -44,4 +44,4 @@ Click on `mouse` to place Electrons/Protons, and `scroll` to change particle's c
 
 ## License
 
-PhYsics was created by Ziv Refaeli and released under the MIT license
+PhYsics was created by Ziv Refaeli and released under the [MIT license](https://github.com/zivrefaeli/PhYsics/blob/master/LICENCE)
