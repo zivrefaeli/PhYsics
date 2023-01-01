@@ -1,5 +1,5 @@
 import pygame
-from pygame import display, time, event, draw, mouse, font, key
+from pygame import display, time, event, draw, mouse, font
 from objects import BLACK, WIDTH, HEIGHT, WHITE, FPS, Methods, ElectricityDot as Dot, Vector, Particle, Electron, Proton, MagneticField, ElectricBoard, Rainbow
 
 CHARGE_RANGE = (1, 5)
