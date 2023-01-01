@@ -1,7 +1,7 @@
 # Physics Simulations
 
 Simulations of topics I learned in physics class in high school - `Ballistics` and `Electricity`.
-<br />
+
 Developed in Python with *Pygame* library and based on physics equations.
 
 ## Demo
