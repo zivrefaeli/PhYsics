@@ -1,10 +1,10 @@
 import pygame
 from pygame import display, time, event, draw, mouse, font
-from objects import BLACK, WIDTH, HEIGHT, WHITE, FPS, Methods, ElectricityDot as Dot, Vector, Particle, Electron, Proton, MagneticField, ElectricBoard, Rainbow
+from objects import *
+from objects import ElectricityDot as Dot
 
 CHARGE_RANGE = (1, 5)
-AXES_VECTOR = Vector()
-AXES_VALUES = [(Dot(WIDTH / 2, 0), 0), (Dot(0, HEIGHT / 2), 90)]
+AXES = [(Vector(WIDTH), Dot(-WIDTH / 2, 0)), (Vector(HEIGHT, 90), Dot(0, -HEIGHT / 2))]
 INFO_NAMES = ['Position', 'a', 'v']
 INFO_FONT = font.SysFont('Consolas', 14)
 PADDING = 10
@@ -14,7 +14,6 @@ window = display.set_mode((WIDTH, HEIGHT))
 running = True
 
 particle = Proton()
-
 particles: list[Particle] = []
 charge = CHARGE_RANGE[0]
 
@@ -93,12 +92,8 @@ def handle_events() -> None:
 
 
 def draw_axes() -> None:
-    draw.line(window, BLACK, (WIDTH / 2, 0), (WIDTH / 2, HEIGHT))
-    draw.line(window, BLACK, (0, HEIGHT / 2), (WIDTH, HEIGHT / 2))
-
-    for dot, angle in AXES_VALUES:
-        AXES_VECTOR.angle = angle
-        AXES_VECTOR.display(window, BLACK, dot)
+    for vector, dot in AXES:
+        vector.display(window, BLACK, dot, width=1)
 
 
 def display_info() -> None:
