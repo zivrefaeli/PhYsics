@@ -34,7 +34,7 @@ class Vector:
         if isinstance(value, tuple):
             # value is a pygame dot
             px, py = value
-        elif isinstance(value, int) or isinstance(value, float):
+        elif (isinstance(value, int) or isinstance(value, float)) and self.size > 0:
             # value is scale
             dx, dy = self.delta()
             x, y = start.get()
