@@ -37,6 +37,7 @@ class Ball:
 
     def display(self, window: surface.Surface, mouse: tuple[float, float]) -> None:
         self.update()
+        self.bounce()
 
         x, y = self.position.convert()
         draw.circle(window, GRAY, (x, y), self.RANGE)

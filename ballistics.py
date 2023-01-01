@@ -2,11 +2,11 @@ import pygame
 from pygame import display, time, event, mouse, font, surface
 from objects import BLACK, WHITE, WIDTH, HEIGHT, FPS, FLOAT_DIGITS, Ball
 
+TEXT_FONT = font.SysFont('Consolas', 16)
+PADDING = 10
+
 
 def display_info(window: surface.Surface, ball: Ball) -> None:
-    TEXT_FONT = font.SysFont('Consolas', 16)
-    PADDING = 10
-
     equation_text = TEXT_FONT.render(str(ball.equation), True, BLACK)
     window.blit(equation_text, (PADDING, PADDING))
 
@@ -35,7 +35,6 @@ def ballistics() -> None:
                 if e.key == pygame.K_SPACE:
                     ball.lunch()
 
-        ball.bounce()
         ball.display(window, mouse.get_pos())
         display_info(window, ball)
 
